@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Todo Life</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<!-- Header -->
+		<div class="header-container">
+			<div class="brand-container">
+				<h2 class="brand-text">Todo</h2>
+			</div>
+			<div class="random-quote">
+				<span id="quote">“For every minute spent organizing, an hour is earned.”</span>
+			</div>
+		</div>
+		<!-- Header End -->
+		<!-- Main Body -->
+		<div class="body-container">
+			<div class="todo-input-container">
+				<div class="input-field-wrapper">
+					<input
+						id="todo-input-field"
+						class="input-field"
+						type="text"
+						placeholder="Write Your Todo..."
+						maxlength="42"
+						autocomplete="off"
+						autofocus
+					/>
+					<img
+						id="todo-input-field-btn"
+						class="input-img-arrow"
+						src="img/right-arrow.png"
+						width="17px"
+						height="17px"
+						alt="add"
+					/>
+				</div>
+			</div>
+			<div class="todo-list-container">
+				<ul id="todo-list-group" class="todo-list">
+					<!-- 					<li id="todo-list-item-individual" class="todo-list-item">
+						<p
+							id="todo-list-item-individual-content-span"
+							class="todo-list-item-content"
+						>
+							Complete ClassWork
+						</p>
+						<div class="todo-list-item-icons">
+							<img
+								id="todo-list-item-icons-done-btn"
+								title="Make it Cheked! If You Done the Work....!"
+								class="todo-list-item-icons-done"
+								width="17px"
+								height="17px"
+								src="img/select.png"
+								alt="Done"
+							/>
+							<img
+								id="todo-list-item-icons-delete-btn"
+								title="Click it? If You Want to Delete....!"
+								class="todo-list-item-icons-delete"
+								width="17px"
+								height="17px"
+								src="img/trash.png"
+								alt="Done"
+							/>
+						</div>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+		<!-- Main body End -->
+		<script type="text/javascript" src="script.js"></script>
+	</body>
+</html>
