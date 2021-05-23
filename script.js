@@ -1,69 +1,48 @@
-var quote = document.getElementById("quote");
-var todoList = document.getElementById("todo-list-group");
-var todoInput = document.getElementById("todo-input-field");
-var todoInputBtn = document.getElementById("todo-input-field-btn");
-var checkBtn = document.getElementById("todo-list-item-icons-done-btn");
-var deleteBtn = document.getElementById("todo-list-item-icons-delete-btn");
-
-function quoteData() {
-	fetch("quotes.json")
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function (data) {
-			let random = Math.floor(Math.random() * data.length);
-			let randomQuote = data[random].text;
-			quote.innerHTML = `" ${randomQuote} "`;
-		});
-}
-setInterval(quoteData, 10000);
-
-todoInputBtn.addEventListener("click", function (e) {
-	var todoInputValue = todoInput.value;
-	if (todoInputValue === "") {
-		alert("Write anything...");
+const form = document.getElementById('form');
+const todoUl = document.getElementById('todoUl');
+let totalTodosCount = document.getElementById('totalTodosCount');
+let completedTodosCount = document.getElementById('completedTodosCount');
+let todoCount = 0;
+let todoCompletedCount = 0;
+const formSubmit = (e) => {
+	e.preventDefault();
+	const todoInputField = document.getElementById('todoInputField');
+	let todoInputValue = todoInputField.value;
+	if (todoInputValue !== '') {
+		todoCount++;
+		addTodo(todoInputValue);
+		console.log(todoCount);
 	} else {
-		let createLi = document.createElement("li");
-		createLi.classList.add("todo-list-item");
-
-		let createSpan = document.createElement("span");
-		createSpan.classList.add("todo-list-item-content");
-		createSpan.innerHTML = todoInputValue;
-
-		let createIconDivs = document.createElement("div");
-		createIconDivs.classList.add("todo-list-item-icons");
-
-		let createDoneIcon = document.createElement("img");
-		createDoneIcon.src = "./img/select.png";
-		createDoneIcon.width = 17;
-		createDoneIcon.height = 17;
-		createDoneIcon.title = "Make it Cheked...!";
-		createDoneIcon.id = "todo-list-item-icons-done-btn";
-		createDoneIcon.classList.add("todo-list-item-icons-done");
-		let createDeleteIcon = document.createElement("img");
-		createDeleteIcon.src = "./img/trash.png";
-		createDeleteIcon.width = 17;
-		createDeleteIcon.height = 17;
-		createDeleteIcon.title = "Delete it....!";
-		createDeleteIcon.classList.add("todo-list-item-icons-delete");
-
-		createIconDivs.appendChild(createDoneIcon);
-		createIconDivs.appendChild(createDeleteIcon);
-		createLi.appendChild(createSpan);
-		createLi.appendChild(createIconDivs);
-		todoList.appendChild(createLi);
-		todoInput.value = "";
+		alert('Enter Any Single Todo');
 	}
-});
+	totalTodosCount.innerHTML = todoCount;
+	completedTodosCount.innerHTML = todoCompletedCount;
+	todoInputField.value = '';
+};
+const addTodo = (todoText) => {
+	const li = document.createElement('li');
+	li.setAttribute('class', 'todo');
+	li.innerHTML = `
+			<p id="todoText" class="todo-text">${todoText}</p>
+	`;
+	todoUl.appendChild(li);
+	todoEvents(li);
+};
+const todoEvents = (li) => {
+	li.addEventListener('click', () => {
+		li.firstElementChild.classList.toggle('done');
+		if (li.firstElementChild.classList.contains('done')) {
+			todoCompletedCount++;
+		} else {
+			todoCompletedCount--;
+		}
+		completedTodosCount.innerHTML = todoCompletedCount;
+	});
+	li.addEventListener('dblclick', () => {
+		li.remove();
+		todoCount--;
+		totalTodosCount.innerHTML = todoCount;
+	});
+};
 
-todoList.addEventListener("click", function (e) {
-	let item = e.target;
-	if (item.classList[0] === "todo-list-item-icons-delete") {
-		const todo = item.parentElement.parentElement;
-		todo.remove();
-	}
-	if (item.classList[0] === "todo-list-item-icons-done") {
-		const todo = item.parentElement.parentElement;
-		todo.classList.toggle("checked");
-	}
-});
+form.addEventListener('submit', formSubmit);
